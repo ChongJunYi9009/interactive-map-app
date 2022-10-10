@@ -10,14 +10,7 @@ export function GPS_CheckActive(){
       return false;
 }
 
-export function GPS_WatchCurrPosition(){
-    function success(position) {
-        console.log(position);
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-        console.log("Altitude is :", position.coords.altitude);
-        console.log(`More or less: `, position.coords.accuracy, ` meters.`);
-    }
+export function GPS_WatchCurrPosition(successCallback){
     function failure(error){
         console.warn(error.message);
     }
@@ -27,5 +20,5 @@ export function GPS_WatchCurrPosition(){
         maximumAge: 10000   //10s
       };
 
-    navigator.geolocation.watchPosition(success, failure, options);
+    navigator.geolocation.watchPosition(successCallback, failure, options);
 }
