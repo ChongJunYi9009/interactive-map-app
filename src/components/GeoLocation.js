@@ -6,15 +6,16 @@ class GeoLocation extends Component{
         super(props);
         this.state = {
             enabled: false,
-            latitude: 0,
-            longitude: 0,
-            altitude: 0
+            latitude: 0.0,
+            longitude: 0.0,
+            altitude: 0.0
         };
+        this.Geolocation_Callback = this.Geolocation_Callback.bind(this);
     }
 
      //Once after first render
     componentDidMount(){
-        if(!GPS_CheckActive()){
+        if(GPS_CheckActive()){
             GPS_WatchCurrPosition(this.Geolocation_Callback)
             this.setState({enabled: true});
         }
@@ -25,9 +26,11 @@ class GeoLocation extends Component{
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
         console.log("Altitude is :", position.coords.altitude);
-        this.setState({latitude: position.coords.latitude});
-        this.setState({longitude: position.coords.longitude});
-        this.setState({altitude: position.coords.altitude});
+        this.setState({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            altitude: position.coords.altitude
+        });
     }
 
     render(){
@@ -40,7 +43,7 @@ class GeoLocation extends Component{
                 Altitude: {this.state.altitude}
               </p>
             </div>
-          );
+        );
     }
 }
 
