@@ -5,6 +5,7 @@ class GeoLocation extends Component{
     constructor(props){
         super(props);
         this.state = {
+            enabled: false,
             latitude: 0,
             longitude: 0,
             altitude: 0
@@ -15,6 +16,7 @@ class GeoLocation extends Component{
     componentDidMount(){
         if(!GPS_CheckActive()){
             GPS_WatchCurrPosition(this.Geolocation_Callback)
+            this.setState({enabled: true});
         }
     }
  
@@ -31,6 +33,7 @@ class GeoLocation extends Component{
     render(){
         return (
             <div>
+              {!this.state.enabled && <h5 style={{color:"red"}}>GPS not enabled!</h5>}
               <p>
                 Latitude: {this.state.latitude}&emsp; &emsp;
                 Longitude: {this.state.longitude}&emsp; &emsp;
