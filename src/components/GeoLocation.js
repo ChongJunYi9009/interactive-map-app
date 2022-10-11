@@ -21,25 +21,26 @@ class GeoLocation extends Component{
      //Once after first render
     componentDidMount(){
         setTimeout(function() { //Start the timer for 0.5 sec
-        if(GPS_CheckActive()){
+            if(GPS_CheckActive()){
                 GPS_WatchCurrPosition(this.Geolocation_Callback);
-            this.setState({enabled: true});
+                this.setState({enabled: true});
             }else{
                 this.setState({enabled: false});
-        }
+            }
         }.bind(this), 500)
     }
  
     Geolocation_Callback(position){
         //console.log(position);
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-        console.log("Altitude is :", position.coords.altitude);
+        //console.log("Latitude is :", position.coords.latitude);
+        //console.log("Longitude is :", position.coords.longitude);
+        //console.log("Altitude is :", position.coords.altitude);
         this.setState({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             altitude: position.coords.altitude
         });
+        this.props.geoCallback(position.coords.latitude, position.coords.longitude,  position.coords.altitude);
     }
 
 
